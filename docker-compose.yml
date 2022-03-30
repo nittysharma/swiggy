@@ -1,0 +1,9 @@
+version "1.0"
+services:
+  config-server:
+    image: gaccount4m/swiggy-config-server
+    mem_limit: 300m
+    ports:
+      - "8888:8888"
+    environment:
+      GIT_PASSWORD: ${GIT_PASSWORD}

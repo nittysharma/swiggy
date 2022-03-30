@@ -21,10 +21,11 @@
 
     </dependencies>
 <modules>
-    <module>config</module>
+    <module>config-service</module>
     <module>customer</module>
     <module>eureka</module>
     <module>invoice</module>
+    <module>menu</module>
     <module>order</module>
     <module>restaurant</module>
 </modules>
