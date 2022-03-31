@@ -50,7 +50,7 @@ jobs:
     - name: Docker Push Config
       run: docker push gaccount4m/swiggy-config-service
 
-    - name: Build, tag, and push config image to Amazon ECR
+    - name: Swiggy-Config Build, tag, and push image to Amazon ECR
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: swiggy-config-service
@@ -65,33 +65,90 @@ jobs:
 
     - name: Docker Push Eureka
       run: docker push gaccount4m/swiggy-eureka-service
+      
+    - name: Swiggy-Eureka Build, tag, and push image to Amazon ECR
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: swiggy-eureka-service
+        IMAGE_TAG: swiggy-eureka-service
+      run: |
+        docker build . --file eureka/Dockerfile --build-arg JAR_FILE=eureka/target/*.jar --tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
 
     - name: Build the Docker Image for menu Service
       run: docker build . --file menu/Dockerfile --build-arg JAR_FILE=menu/target/*.jar --tag gaccount4m/swiggy-menu-service:latest
 
     - name: Docker Push Menu
       run: docker push gaccount4m/swiggy-menu-service
+      
+    - name: Swiggy-Menu Build, tag, and push image to Amazon ECR
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: swiggy-menu-service
+        IMAGE_TAG: swiggy-menu-service
+      run: |
+        docker build . --file menu/Dockerfile --build-arg JAR_FILE=menu/target/*.jar --tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
 
     - name: Build the Docker Image for restaurant Service
       run: docker build . --file restaurant/Dockerfile --build-arg JAR_FILE=restaurant/target/*.jar --tag gaccount4m/swiggy-restaurant-service:latest
 
     - name: Docker Push Restaurant
       run: docker push gaccount4m/swiggy-restaurant-service
+      
+    - name: Swiggy-Restaurant Build, tag, and push image to Amazon ECR
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: swiggy-restaurant-service
+        IMAGE_TAG: swiggy-restaurant-service
+      run: |
+        docker build . --file restaurant/Dockerfile --build-arg JAR_FILE=restaurant/target/*.jar --tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
     - name: Build the Docker Image for Customer Service
       run: docker build . --file customer/Dockerfile --build-arg JAR_FILE=customer/target/*.jar --tag gaccount4m/swiggy-customer-service:latest
 
     - name: Docker Push Customer
       run: docker push gaccount4m/swiggy-customer-service
+      
+    - name: Swiggy-Customer Build, tag, and push image to Amazon ECR
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: swiggy-customer-service
+        IMAGE_TAG: swiggy-customer-service
+      run: |
+        docker build . --file customer/Dockerfile --build-arg JAR_FILE=customer/target/*.jar --tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+  
 
     - name: Build the Docker Image for Order Service
       run: docker build . --file order/Dockerfile --build-arg JAR_FILE=order/target/*.jar --tag gaccount4m/swiggy-order-service:latest
 
     - name: Docker Push Order
       run: docker push gaccount4m/swiggy-order-service
+      
+    - name: Swiggy-Order Build, tag, and push image to Amazon ECR
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: swiggy-order-service
+        IMAGE_TAG: swiggy-order-service
+      run: |
+        docker build . --file order/Dockerfile --build-arg JAR_FILE=order/target/*.jar --tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
     - name: Build the Docker Image for Invoice Service
       run: docker build . --file invoice/Dockerfile --build-arg JAR_FILE=invoice/target/*.jar --tag gaccount4m/swiggy-invoice-service:latest
 
     - name: Docker Push Invoice
       run: docker push gaccount4m/swiggy-invoice-service
+
+    - name: Swiggy-Invoice Build, tag, and push image to Amazon ECR
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: swiggy-invoice-service
+        IMAGE_TAG: swiggy-invoice-service
+      run: |
+        docker build . --file invoice/Dockerfile --build-arg JAR_FILE=invoice/target/*.jar --tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
