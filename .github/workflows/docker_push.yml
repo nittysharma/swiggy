@@ -36,3 +36,9 @@ jobs:
 
     - name: Docker Push
       run: docker push gaccount4m/swiggy-customer-service
+
+    - name: Build the Docker Image for Config Service
+      run: docker build . --file config/Dockerfile --build-arg JAR_FILE=config/target/*.jar --tag gaccount4m/swiggy-config-service:latest
+
+    - name: Docker Push Config
+      run: docker push gaccount4m/swiggy-config-service
