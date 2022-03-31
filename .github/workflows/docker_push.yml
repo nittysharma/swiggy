@@ -56,7 +56,7 @@ jobs:
         ECR_REPOSITORY: swiggy-config-service
         IMAGE_TAG: swiggy-config-service
       run: |
-        docker build . --file config-service/Dockerfile --build-arg JAR_FILE=config-service/target/*.jar --tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker build . --file config-service/Dockerfile --build-arg JAR_FILE=config-service/target/*.jar --tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
 
