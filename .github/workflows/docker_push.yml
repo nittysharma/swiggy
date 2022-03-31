@@ -46,9 +46,19 @@ jobs:
 
     - name: Build the Docker Image for Config Service
       run: docker build . --file config-service/Dockerfile --build-arg JAR_FILE=config-service/target/*.jar --tag gaccount4m/swiggy-config-service:latest
-
+      
     - name: Docker Push Config
       run: docker push gaccount4m/swiggy-config-service
+
+    - name: Build, tag, and push config image to Amazon ECR
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: swiggy-config-service
+        IMAGE_TAG: swiggy-config-service
+      run: |
+        docker build . --file config-service/Dockerfile --build-arg JAR_FILE=config-service/target/*.jar --tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
 
     - name: Build the Docker Image for eureka Service
       run: docker build . --file eureka/Dockerfile --build-arg JAR_FILE=eureka/target/*.jar --tag gaccount4m/swiggy-eureka-service:latest
