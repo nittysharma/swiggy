@@ -32,7 +32,7 @@ jobs:
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: Build the Docker Image for Customer Service
-      run: docker build . --file customer/Dockerfile --build-arg JAR_FILE=target/*.jar --tag gaccount4m/swiggy-customer-service:latest
+      run: docker build . --file customer/Dockerfile --build-arg JAR_FILE=customer/target/*.jar --tag gaccount4m/swiggy-customer-service:latest
 
     - name: Docker Push
       run: docker push gaccount4m/swiggy-customer-service
